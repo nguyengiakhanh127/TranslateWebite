@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌍 Ứng dụng dịch ngôn ngữ</title>
+  <link rel="stylesheet" href="{% static 'translate_app/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'translate_app/home.css' %}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    window.CSRF_TOKEN = "{{ csrf_token }}";
+  </script>
+  <script src="{% static 'translate_app/home.js' %}" defer></script>
+</head>
+
+<body class="light-mode">
+<header class="main-header">
+    <div class="header-content">
+        <h1>🌍 ỨNG DỤNG DỊCH NGÔN NGỮ</h1>
+        <p>Dịch văn bản nhanh chóng – Giao diện quốc tế.</p>
+    </div>
+
+    <div class="header-actions">
+        <button onclick="toggleTheme()" class="btn-icon header-btn">
+            🌓 Theme
+        </button>
+        
+        <span id="userDisplay" class="user-greeting">
+            Khách
+        </span>
+
+        <button onclick="logout()" class="btn-logout header-btn">
+            🚪 Đăng xuất
+        </button>
+    </div>
+</header>
+
+  <main class="translator-box fade-in">
+    <textarea id="inputText" placeholder="Nhập văn bản cần dịch..."></textarea>
+
+  <div class="lang-row">
+      <div class="lang-selector-wrapper">
+          <input type="hidden" id="fromLang" value="auto">
+          
+          <div class="custom-select-trigger" onclick="toggleDropdown('sourceDropdown')">
+              <span id="selectedSourceLang">Tiếng Việt</span>
+              <i class="arrow-down">▼</i>
+          </div>
+
+          <div id="sourceDropdown" class="custom-options-container">
+              <div class="search-box">
+                  <input type="text" placeholder="🔍 Tìm ngôn ngữ nguồn..." 
+                        onkeyup="filterLanguages(this.value, 'sourceList')">
+              </div>
+              <ul id="sourceList" class="options-grid">
+                  </ul>
+          </div>
+      </div>
+
+      <button class="swap-btn" onclick="swapLangs()">⇄</button>
+
+      <div class="lang-selector-wrapper">
+          <input type="hidden" id="toLang" value="vi">
+
+          <div class="custom-select-trigger" onclick="toggleDropdown('targetDropdown')">
+              <span id="selectedTargetLang">Tiếng Việt</span>
+              <i class="arrow-down">▼</i>
+          </div>
+
+          <div id="targetDropdown" class="custom-options-container align-right">
+              <div class="search-box">
+                  <input type="text" placeholder="🔍 Tìm ngôn ngữ đích..." 
+                        onkeyup="filterLanguages(this.value, 'targetList')">
+              </div>
+              <ul id="targetList" class="options-grid">
+                  </ul>
+          </div>
+      </div>
+  </div>
+    <button class="btn-translate" onclick="translateText()">🌐 Dịch ngay</button>
+    <div id="output" class="output-box"></div>
+
+    <div class="btn-row">
+      <button onclick="copyText()">📋 Copy</button>
+      <button onclick="speakText()">🔊 Nghe</button>
+      <button onclick="clearAll()">🧹 Xóa</button>
+    </div>
+
+    <a href="{% url 'file_page' %}" class="link-secondary">
+      📄 Sang trang dịch file (PDF / Word / Ảnh)
+    </a>
+  </main>
+
+  <section class="history-section">
+    <h2>🕓 Lịch sử dịch</h2>
+    <ul id="historyList" class="history-list"></ul>
+  </section>
+
+  <footer>
+    © 2025 - Nhóm 13 | Ứng dụng dịch ngôn ngữ | Môn Lập trình Web
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

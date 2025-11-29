@@ -1,0 +1,197 @@
+/* =========================================
+   1. BỐ CỤC HÀNG NGANG (FLEXBOX)
+   ========================================= */
+.lang-row {
+    display: flex;
+    justify-content: space-between; /* Đẩy 2 phần tử ra 2 mép */
+    align-items: center;            /* Căn giữa theo chiều dọc */
+    margin-bottom: 20px;
+    position: relative;             /* Để z-index hoạt động đúng */
+    gap: 10px;                      /* Khoảng cách giữa các phần tử */
+}
+
+/* Nút hoán đổi ở giữa */
+.swap-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #5f6368;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+.swap-btn:hover {
+    background: #f1f3f4;
+}
+
+/* Container của mỗi Dropdown (Chiếm khoảng 45% chiều rộng mỗi bên) */
+.lang-selector-wrapper {
+    position: relative;
+    width: 45%; 
+}
+
+/* =========================================
+   2. GIAO DIỆN CUSTOM DROPDOWN
+   ========================================= */
+/* Nút bấm hiển thị ngôn ngữ */
+.custom-select-trigger {
+    border: 1px solid #dadce0;
+    padding: 10px 15px;
+    cursor: pointer;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: 500;
+    color: #3c4043;
+    user-select: none;
+}
+.custom-select-trigger:hover {
+    background-color: #f8f9fa;
+    border-color: #dadce0;
+}
+
+/* Hộp chứa danh sách (Dropdown Body) */
+.custom-options-container {
+    display: none; /* Mặc định ẩn */
+    position: absolute;
+    top: 110%; /* Cách nút bấm 1 xíu */
+    left: 0;
+    
+    /* Kích thước dropdown mở rộng */
+    width: 600px; /* Đủ rộng cho 5 cột */
+    
+    background: white;
+    border: 1px solid #dadce0;
+    box-shadow: 0 4px 6px rgba(32,33,36,0.28);
+    z-index: 9999; /* Luôn nổi lên trên cùng */
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* [QUAN TRỌNG] Xử lý Dropdown bên phải */
+/* Vì bên phải sát lề, nếu mở dropdown sang phải sẽ bị mất nội dung.
+   Ta phải neo nó sang phải (right: 0) để nó mở ngược về bên trái. */
+.custom-options-container.align-right {
+    left: auto;
+    right: 0;
+}
+
+/* Hiển thị dropdown khi có class này */
+.show-dropdown {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Thanh tìm kiếm bên trong */
+.search-box input {
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    box-sizing: border-box; /* Đảm bảo padding không làm vỡ layout */
+}
+
+/* =========================================
+   3. GRID 5 CỘT x 10 DÒNG (SCROLL)
+   ========================================= */
+.options-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 Cột đều nhau */
+    gap: 8px;
+
+    /* Giới hạn chiều cao và cho phép cuộn */
+    max-height: 350px; /* Tương đương khoảng 10 dòng */
+    overflow-y: auto;
+}
+
+/* Từng ô ngôn ngữ */
+.options-grid li {
+    padding: 8px 4px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 4px;
+    color: #3c4043;
+    white-space: nowrap;      /* Không xuống dòng tên ngôn ngữ */
+    overflow: hidden;         /* Cắt bớt nếu tên quá dài */
+    text-overflow: ellipsis;  /* Thêm dấu ... */
+}
+
+.options-grid li:hover {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+}
+
+/* Hiệu ứng Fade in nhẹ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   RESULT BOX - GIAO DIỆN KẾT QUẢ DỊCH FILE
+   ============================================ */
+
+/* Khung bao ngoài chứa 2 cột */
+.result-container {
+    display: flex;
+    gap: 20px; /* Khoảng cách giữa 2 cột */
+    margin-top: 15px;
+    text-align: left; /* Canh trái văn bản */
+}
+
+/* Từng cột (Gốc và Dịch) */
+.result-col {
+    flex: 1; /* Chia đều độ rộng 50-50 */
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tiêu đề nhỏ bên trên mỗi cột */
+.result-label {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #5f6368;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Nội dung văn bản */
+.result-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #202124;
+    white-space: pre-wrap; /* Giữ nguyên xuống dòng của văn bản gốc */
+    word-break: break-word; /* Tự xuống dòng nếu từ quá dài */
+    min-height: 100px; /* Độ cao tối thiểu cho đẹp */
+}
+
+/* Màu nền nhẹ cho cột OCR (để phân biệt với bản dịch) */
+.result-col.ocr-source {
+    background-color: #f8f9fa;
+}
+
+/* Responsive: Trên điện thoại thì xếp chồng lên nhau */
+@media (max-width: 768px) {
+    .result-container {
+        flex-direction: column;
+    }
+}

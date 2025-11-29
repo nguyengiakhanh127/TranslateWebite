@@ -1,0 +1,328 @@
+/* =========================================
+   1. BỐ CỤC CHỌN NGÔN NGỮ (HEADER)
+   ========================================= */
+.lang-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    gap: 10px;
+}
+
+.lang-selector-wrapper {
+    position: relative;
+    width: 45%; 
+}
+
+/* Nút hoán đổi */
+.swap-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #5f6368;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+.swap-btn:hover {
+    background: #f1f3f4;
+}
+
+/* =========================================
+   2. CUSTOM DROPDOWN (MENU THẢ)
+   ========================================= */
+/* Nút bấm hiển thị */
+.custom-select-trigger {
+    border: 1px solid #dadce0;
+    padding: 10px 15px;
+    cursor: pointer;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: 500;
+    color: #3c4043;
+    user-select: none;
+}
+.custom-select-trigger:hover {
+    background-color: #f8f9fa;
+    border-color: #dadce0;
+}
+
+/* Hộp danh sách */
+.custom-options-container {
+    display: none; 
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 600px;
+    background: white;
+    border: 1px solid #dadce0;
+    box-shadow: 0 4px 6px rgba(32,33,36,0.28);
+    z-index: 9999;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Dropdown bên phải mở ngược lại */
+.custom-options-container.align-right {
+    left: auto;
+    right: 0;
+}
+
+.show-dropdown {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Thanh tìm kiếm */
+.search-box input {
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Lưới 5 cột */
+.options-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.options-grid li {
+    padding: 8px 4px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 4px;
+    color: #3c4043;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.options-grid li:hover {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+}
+
+/* ============================================
+   3. HISTORY SECTION (LỊCH SỬ DỊCH)
+   ============================================ */
+.history-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Khoảng cách thoáng */
+}
+
+/* Container từng mục */
+.history-item {
+    display: flex;
+    gap: 20px; /* Khoảng cách giữa 2 box */
+    align-items: stretch;
+    width: 100%;
+}
+
+/* Style chung cho Box */
+.history-box {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 25px; /* Padding rộng cho thoáng */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+/* Màu sắc phân biệt Gốc/Đích */
+.history-box.source {
+    background-color: #f8f9fa;
+    border-color: #dadce0;
+}
+.history-box.target {
+    background-color: #ffffff;
+    border-color: #d2e3fc;
+}
+
+/* Tiêu đề ngôn ngữ */
+.history-lang-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #5f6368;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 8px;
+}
+
+/* Nội dung văn bản */
+.history-content {
+    font-size: 15px;
+    color: #202124;
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+/* ============================================
+   4. COMPONENTS (BADGE, LINK, BUTTON)
+   ============================================ */
+
+/* Nhãn loại lịch sử (Text, PDF, Ảnh) */
+.type-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    margin-right: 5px;
+    color: white;
+    vertical-align: middle;
+}
+.type-badge.txt { background-color: #5f6368; }
+.type-badge.img { background-color: #d93025; }
+.type-badge.pdf { background-color: #1a73e8; }
+
+/* Tag tên file */
+.file-name-tag {
+    font-weight: 600;
+    color: #1a73e8;
+    display: inline-block;
+    background: #e8f0fe;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* Link Download */
+.download-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #1a73e8;
+    font-weight: 600;
+    background-color: #e8f0fe;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    font-size: 13px;
+}
+.download-link:hover {
+    background-color: #d2e3fc;
+    border-color: #1a73e8;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Nút download cũ (Giữ lại để tương thích ngược nếu cần) */
+.history-dl-btn {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background-color: #1a73e8;
+    color: white;
+    padding: 8px 0;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+}
+.history-dl-btn:hover {
+    background-color: #1557b0;
+}
+/* ============================================
+   HISTORY SECTION CONTAINER (KHUNG BAO NGOÀI)
+   ============================================ */
+
+.history-section {
+    /* 1. Tách biệt hẳn với phần Dịch bên trên */
+    margin-top: 40px;
+    
+    /* 2. [QUAN TRỌNG] Tạo khoảng đệm bên trong để nội dung không chạm viền */
+    padding: 25px; 
+    
+    /* 3. Tạo khung nền cho toàn bộ khu vực lịch sử (Tuỳ chọn) */
+    background-color: #ffffff; /* Hoặc #f8f9fa nếu muốn màu xám nhẹ */
+    border: 1px solid #e0e0e0;
+    border-radius: 16px; /* Bo góc lớn cho mềm mại */
+    
+    /* Hiệu ứng bóng đổ nhẹ làm nổi bật khu vực này */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    
+    /* Đảm bảo chiều rộng không bị tràn */
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Tiêu đề "🕓 Lịch sử dịch" */
+.history-section h2 {
+    font-size: 18px;
+    color: #1a73e8; /* Màu xanh nổi bật */
+    margin-top: 0;
+    
+    /* 4. [QUAN TRỌNG] Đẩy danh sách xuống dưới, không cho dính vào tiêu đề */
+    margin-bottom: 20px; 
+    
+    padding-left: 5px; /* Thụt vào một chút cho thẳng hàng với các box con */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Danh sách (UL) */
+.history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    display: flex;
+    flex-direction: column;
+    
+    /* 5. Khoảng cách giữa các mục lịch sử con */
+    gap: 20px; 
+}
+
+/* Responsive: Trên điện thoại thì giảm padding chút cho đỡ tốn chỗ */
+@media (max-width: 768px) {
+    .history-section {
+        padding: 15px; /* Giảm padding trên mobile */
+        margin-top: 30px;
+    }
+}
+
+/* ============================================
+   5. RESPONSIVE & ANIMATION
+   ============================================ */
+
+/* Mobile: Xếp chồng 2 box lên nhau */
+@media (max-width: 600px) {
+    .history-item {
+        flex-direction: column;
+    }
+}
+
+/* Hiệu ứng hiện dropdown */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,30 @@
+{# translate_app/templates/translate_app/register.html #}
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Đăng ký</title>
+  <link rel="stylesheet" href="{% static 'translate_app/style.css' %}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+  <script>
+    window.CSRF_TOKEN = "{{ csrf_token }}";
+  </script>
+  <script src="{% static 'translate_app/register.js' %}" defer></script>
+</head>
+<body class="light-mode">
+  <div class="login-container fade-in">
+    <h2>📝 Đăng ký</h2>
+    <input type="text" id="username" placeholder="Họ và tên" />
+    <input type="text" id="regEmail" placeholder="Email của bạn" />
+    <input type="password" id="regPassword" placeholder="Mật khẩu" />
+    <input type="password" id="regPasswordConfirm" placeholder="Xác nhận mật khẩu" />
+    <button id="registerBtn">Đăng ký</button>
+    <p id="registerMsg" class="login-msg"></p>
+    <a href="{% url 'login_page' %}" class="link-secondary">⬅️ Về trang đăng nhập</a>
+  </div>
+  <footer>© 2025 - Nhóm 13 | Web dịch ngôn ngữ</footer>
+</body>
+</html>
