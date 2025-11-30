@@ -84,30 +84,9 @@ if 'DATABASE_URL' in os.environ:
 
 # 2. Môi trường Localhost (Chạy máy tính của bạn)
 # Chỉ dùng MySQL khi KHÔNG PHẢI là lệnh 'collectstatic'
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'mywebsite',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': '127.0.0.1',
-            'PORT': '3307',
-            'OPTIONS': {
-                'charset': 'utf8mb4',
-            },
-        }
-    }
-
-# 3. Môi trường Build Docker (Lệnh 'collectstatic')
-# Dùng SQLite giả để Django không đòi driver MySQL -> Build thành công
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+DATABASES = {
+    'default': dj_database_url.parse('postgresql://mytranslato_user:Pp8BXTgwfL90uCMeF5LGoLqeprD3sf1z@dpg-d4m44r2li9vc73ejn4j0-a.singapore-postgres.render.com/mytranslato')
+}
 
 # =========================================================
 # 4. STATIC & MEDIA
